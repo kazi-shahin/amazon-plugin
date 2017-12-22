@@ -59,10 +59,17 @@ register_activation_hook( __FILE__, 'activate_bbil_amazon_product' );
 register_deactivation_hook( __FILE__, 'deactivate_bbil_amazon_product' );
 
 /**
+ * The class responsible for loading amazon api
+ * Custome amazon api class.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'lib/amazon/amazon_product_api.php';
+
+/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-bbil-amazon-product.php';
+require plugin_dir_path( __FILE__ ) . 'includes/ajax_functions_call.php';
 
 /**
  * Begins execution of the plugin.

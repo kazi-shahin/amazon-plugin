@@ -85,6 +85,7 @@ class Bbil_Amazon_Product {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
+	 * - Config. All constants and declarations.
 	 * - Bbil_Amazon_Product_Loader. Orchestrates the hooks of the plugin.
 	 * - Bbil_Amazon_Product_i18n. Defines internationalization functionality.
 	 * - Bbil_Amazon_Product_Admin. Defines all hooks for the admin area.
@@ -98,6 +99,11 @@ class Bbil_Amazon_Product {
 	 */
 	private function load_dependencies() {
 
+		/**
+		 * The file responsible for defining all the constants and declarations of the
+		 * core plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/config.php';
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
