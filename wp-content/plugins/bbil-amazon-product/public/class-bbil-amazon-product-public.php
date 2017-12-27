@@ -72,6 +72,17 @@ class Bbil_Amazon_Product_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		wp_enqueue_style( $this->plugin_name.'-bootstrap', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-jquery_ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-jquery_ui_theme', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.theme.min.css', array(), $this->version, 'all' );
+
+		wp_enqueue_style( $this->plugin_name.'-ubuntu', 'https://fonts.googleapis.com/css?family=Ubuntu', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-pacifico', 'https://fonts.googleapis.com/css?family=Pacifico', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-font_awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array(), $this->version, 'all' );
+
+		wp_enqueue_style( $this->plugin_name.'-common', plugin_dir_url( __FILE__ ) . 'css/common-styles.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-style', plugin_dir_url( __FILE__ ) . 'css/style.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name.'-mediaquery', plugin_dir_url( __FILE__ ) . 'css/mediaquery.css', array(), $this->version, 'all' );
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bbil-amazon-product-public.css', array(), $this->version, 'all' );
 
@@ -96,7 +107,12 @@ class Bbil_Amazon_Product_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bbil-amazon-product-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'-jquery_ui', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array('jquery'), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'-bootstrap', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array('jquery'), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'-masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('jquery'), $this->version, false );
+		wp_enqueue_script( $this->plugin_name.'-custom', plugin_dir_url( __FILE__ ) . 'js/custom.js', array('jquery'), $this->version, false );
+
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bbil-amazon-product-public.js', array('jquery'), $this->version, false );
 
 	}
 

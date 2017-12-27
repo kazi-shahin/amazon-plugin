@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php get_header(); ?>
 <?php
 
     $AMAZON_PRODUCT = new amazon_search(AWS_ACCESS_KEY, AWS_SECRET_KEY, ASSOCIATIVE_ID);
@@ -7,18 +7,10 @@
     // echo json_encode($AMAZON_PRODUCT->args); echo "<br>";
     // print_r($AMAZON_PRODUCT->args);
 
-    // $AMAZON_PRODUCT->get_search_form();
-    // $AMAZON_PRODUCT->render();
+    $AMAZON_PRODUCT->get_search_form();
+    $AMAZON_PRODUCT->render();
     // echo "<br> Total pages : ". $AMAZON_PRODUCT->get_total_pages();
 ?>
-<!--Content START -->
-<div class="col-lg-9 col-sm-6">
-    <?php $AMAZON_PRODUCT->render(); ?>
-    <?php $AMAZON_PRODUCT->getLoader(); ?>
-</div>
-<!--Content END -->
-<?php include 'sidebar.php'; ?>
-<?php include 'footer.php'; ?>
 <script>
     jQuery(function ($) {
         var ajaxurl             = "<?php echo admin_url('admin-ajax.php'); ?>";
@@ -29,16 +21,11 @@
         var MinPercentageOff    = '';
 
         // search products
-        $(document).on( 'click', '#searchForm, #sidebarSearchForm', function(event) {
+        $(document).on( 'submit', '#searchForm', function(event) {
             event.preventDefault();
-            if ($(this).attr('id') == 'searchForm') {
-                MinPercentageOff   = $('#discount-rate span').html();
-                Keywords    = $('#searchKeywords').val();
-            } else {
-                MinPercentageOff   = $('#sidebar-discount-rate span').html();
-                Keywords    = $('#sidebarSearchKeywords').val();
-            }
-            // alert('offer : '+ MinPercentageOff +' === name : '+ Keywords); return false;
+            var MinPercentageOff   = $('#offer').val();
+            var Keywords    = $('#name').val();
+            // alert('offer : '+ offer +' === name : '+ name);
 
             if (Keywords.length > 0) {
                 $.ajax({
@@ -49,10 +36,10 @@
                         'Keywords'          : Keywords
                         },
                     method  : 'POST',
-                    beforeSend  : function(){ $('#productWrapper').html(''); }, 
+                    beforeSend  : function(){ $('.imageList ul').html(''); }, 
                     success     : function(data){
                         var dataObj = JSON.parse(data);
-                        $('#productWrapper').html(dataObj.products);
+                        $('.imageList ul').html(dataObj.products);
 
                         $('#productWrapper').attr('data_maxPages', dataObj.maxPages);
                         $('#productWrapper').attr('data_Keywords', dataObj.Keywords);
@@ -73,7 +60,7 @@
         // infinite loading
         $(window).scroll(function() {
             if (ItemPage <= maxPages && initiate_new_load ) {
-               if($(window).scrollTop() + $(window).height() > $(document).height() - 2000 ) {
+               if($(window).scrollTop() + $(window).height() > $(document).height() - 100 ) {
                     ItemPage = parseInt($('#productWrapper').attr('data_ItemPage'));
                     maxPages = $('#productWrapper').attr('data_maxPages');
                     Keywords = $('#productWrapper').attr('data_Keywords');
@@ -95,7 +82,7 @@
                         },
                         success : function( data ) {
                             // console.log(data);
-                            jQuery('#productWrapper').append(data);
+                            jQuery('.imageList ul').append(data);
                             jQuery('.spinnerWrapper').addClass('hidden');
                             $('#productWrapper').attr('data_itempage', ItemPage + 1);
                             initiate_new_load = true;
@@ -110,3 +97,4 @@
         });
     });
 </script>
+<?php get_footer(); ?>

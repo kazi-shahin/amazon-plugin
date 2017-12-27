@@ -57,7 +57,7 @@ class amazon {
 	** 
 	** http://docs.aws.amazon.com/AWSECommerceService/latest/DG/CHAP_ResponseGroupsList.html
 	*/
-	public $ResponseGroup = 'ItemAttributes,Reviews,Offers,Images';
+	public $ResponseGroup = 'ItemAttributes,Reviews,Offers,Images,BrowseNodes';
 
 	public $MinPercentageOff = '10';
 
