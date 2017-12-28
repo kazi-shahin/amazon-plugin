@@ -21,40 +21,18 @@
         </div>
     </div>
     
-    <div class="panel panel-default m-t-15">
-        <div class="panel-body sidebar-categories">
-            <h4>Amazon Categories</h4>
-
-            <ul>
-                <li>
-                    <a href="#">Appreal</a>
-                </li>
-                <li>
-                    <a href="#">Appliances</a>
-                </li>
-                <li>
-                    <a href="#">ArtAndCraft</a>
-                </li>
-                <li>
-                    <a href="#">Auto Motive</a>
-                </li>
-                <li>
-                    <a href="#">Baby</a>
-                </li>
-                <li>
-                    <a href="#">Beauty</a>
-                </li>
-                <li>
-                    <a href="#">Books</a>
-                </li>
-                <li>
-                    <a href="#">Classic</a>
-                </li>
-                <li>
-                    <a href="#">Collections</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <?php if ($categories) {
+        echo '<div class="panel panel-default m-t-15">';
+            echo '<div class="panel-body sidebar-categories">';
+                echo '<h4>Amazon Categories</h4>';
+                    echo '<ul id="sidebarCategories">';
+                        foreach ($categories as $category) {
+                            echo '<li> <a href="'. trim($category) .'">'. trim($category) .'</a></li>';
+                        }
+                    echo '</ul>';
+                echo '</div>';
+            echo '</div>';
+        echo '</div>';
+    } ?>
 </div>
 <!--sidebar END-->

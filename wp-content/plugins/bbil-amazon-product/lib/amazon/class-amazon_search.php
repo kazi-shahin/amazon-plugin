@@ -152,7 +152,7 @@ class amazon_search extends amazon {
 		$productItems =  $this->getProducts($this->args);
 
 	    if ($productItems) {
-		    $html .= '<div id="productWrapper" class="grid" data_MinPercentageOff="'. $this->MinPercentageOff .'" data_Keywords="'. $this->args['Keywords'] .'" data_maxPages="'. $this->get_total_pages() .'" data_ItemPage="2">';
+		    $html .= '<div id="productWrapper" class="grid" data_SearchIndex="All" data_MinPercentageOff="'. $this->MinPercentageOff .'" data_Keywords="'. $this->args['Keywords'] .'" data_maxPages="'. $this->get_total_pages() .'" data_ItemPage="2">';
 		        $html .= $productItems;
 		    $html .= '</div>';
 		    $html .= $this->getLoader();
@@ -164,10 +164,6 @@ class amazon_search extends amazon {
 	public function loadMoreProducts($args) {
 		$this->args = $args;
 		return $this->getProducts($this->args);
-	}
-
-	public function getCategories() {
-		echo '<br><pre>'. print_r($this->parsed_xml, true) .'</pre>'; exit();
 	}
 
 	/* ====================================================================
@@ -214,5 +210,25 @@ class amazon_search extends amazon {
 	public function is_valid_request() {
 	    if ($this->parsed_xml) return $this->parsed_xml['Items']['Request']['IsValid'];
 	    return false;
+	}
+
+	public function getCategories() {
+		$args = ['SearchIndex' => 'Book', 'Title' => 'superman'];
+		$results = $this->requestAPI($args);
+		$this->parsed_xml = json_decode(json_encode((array) simplexml_load_string($results)), 1);
+		$this->parsed_xml = $this->parsed_xml['Items']['Request']['Errors']['Error']['Message'];
+		// $replaceStr = [
+		// 	'The value you specified for SearchIndex is invalid. Valid values include [' => '',
+		// 	'].' => '',
+		// 	"'"  => ''
+		// ];
+		// $this->parsed_xml = strstr($this->parsed_xml, $replaceStr);
+		$replaceStr = 'The value you specified for SearchIndex is invalid. Valid values include [';
+		$this->parsed_xml = str_replace($replaceStr, '', $this->parsed_xml);
+		$this->parsed_xml = str_replace('].', '', $this->parsed_xml);
+		$this->parsed_xml = str_replace("'", '', $this->parsed_xml);
+		$this->parsed_xml = explode(',', $this->parsed_xml);
+
+		return array_filter($this->parsed_xml);
 	}
 }

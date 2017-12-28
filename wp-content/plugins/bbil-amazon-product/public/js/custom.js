@@ -2,7 +2,7 @@ jQuery( function($) {
     var handle = $( "#custom-handle" );
     var change_text = $( "#discount-rate>span" );
     var sidebar_change_text = $( "#sidebar-discount-rate>span" );
-    $( "#slider, #sidebar-slider" ).slider({
+    $( "#slider" ).slider({
     	//value: 60,
 	    orientation: "horizontal",
 	    range: "min",
